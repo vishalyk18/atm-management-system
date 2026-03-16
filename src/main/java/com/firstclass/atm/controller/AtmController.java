@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.firstclass.atm.model.Atm;
+import com.firstclass.atm.model.Transaction;
 import com.firstclass.atm.service.AtmService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/atm")
@@ -45,5 +48,11 @@ public class AtmController {
     @PostMapping("/withdraw")
     public ResponseEntity<Atm> withdraw(@RequestParam String accountNumber, @RequestParam double amount) {
         return ResponseEntity.ok(atmService.withdraw(accountNumber, amount));
+    }
+
+    // Transaction History
+    @GetMapping("/history/{accountNumber}")
+    public ResponseEntity<List<Transaction>> getTransactionHistory(@PathVariable String accountNumber) {
+        return ResponseEntity.ok(atmService.getTransactionHistory(accountNumber));
     }
 }
